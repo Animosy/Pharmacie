@@ -3,7 +3,6 @@ package controllers;
 import java.util.ArrayList;
 import java.util.Date;
 
-import models.employe.Employe;
 import models.employe.Pharmacien;
 import models.employe.PreparateurCommande;
 import models.pharmacie.Pharmacie;
@@ -13,6 +12,7 @@ import views.Menu;
 import views.PharmacieView;
 
 public class PharmacieController extends Controller{
+	
 	private static PharmacieController pharmacieController = null;
 	private PharmacieView pharmacieView = new PharmacieView();
 	private ArrayList<Pharmacie> pharmacies = new ArrayList<>();

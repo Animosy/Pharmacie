@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class Menu {
+
 	ArrayList<String> menu = new ArrayList();
 	
 	public void ajouterElementMenu(String text) {
