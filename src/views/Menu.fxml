@@ -1,46 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane id="pane" prefHeight="506.0" prefWidth="852.0" style="-fx-background-color: #d9e4dd;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MenuController">
     <children>
-        <Button fx:id="stock" layoutX="345.0" layoutY="154.0" mnemonicParsing="false" onAction="#stockButtonClicked" prefHeight="34.0" prefWidth="154.0" style="-fx-background-color: #79d70f; -fx-background-radius: 25px;" text="Gestion de Produit" textFill="WHITE">
+        <Button fx:id="stock" layoutX="115.0" layoutY="188.0" mnemonicParsing="false" onAction="#stockButtonClicked" prefHeight="44.0" prefWidth="182.0" style="-fx-background-color: #22d70f; -fx-background-radius: 5px;" text="Gestion de Produit" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font></Button>
+        <Button fx:id="employe" layoutX="546.0" layoutY="188.0" mnemonicParsing="false" onAction="#employeButtonClicked" prefHeight="44.0" prefWidth="182.0" style="-fx-background-color: #22d70f; -fx-background-radius: 5px;" text="Gestion des Employes" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font></Button>
+         <Button fx:id="pharmacieMenu" layoutX="116.0" layoutY="259.0" mnemonicParsing="false" onAction="#pharmacieButtonClicked" prefHeight="44.0" prefWidth="182.0" style="-fx-background-color: #22d70f; -fx-background-radius: 5px;" text="Gestion de Pharmacie" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font></Button>
+        <Button fx:id="commandes" layoutX="343.0" layoutY="256.0" mnemonicParsing="false" onAction="#commandesButtonClicked" prefHeight="44.0" prefWidth="182.0" style="-fx-background-color: #22d70f; -fx-background-radius: 5px;" text="Gestion de Commandes" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font></Button>
+        <Button fx:id="exit" layoutX="35.0" layoutY="436.0" mnemonicParsing="false" onAction="#exitButtonClicked" prefHeight="34.0" prefWidth="66.0" style="-fx-background-color: red; -fx-background-radius: 5px;" text="Quitter" textFill="WHITE">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Button>
-        <Button fx:id="clients" layoutX="346.0" layoutY="215.0" mnemonicParsing="false" onAction="#clientButtonClicked" prefHeight="34.0" prefWidth="154.0" style="-fx-background-color: #79d70f; -fx-background-radius: 25px;" text="Gestion de Employes" textFill="WHITE">
+        <Button fx:id="clients" layoutX="342.0" layoutY="188.0" mnemonicParsing="false" onAction="#clientButtonClicked" prefHeight="44.0" prefWidth="182.0" style="-fx-background-color: #22d70f; -fx-background-radius: 5px;" text="Gestion de Client" textFill="WHITE">
          <font>
-            <Font name="System Bold Italic" size="12.0" />
+            <Font name="System Bold Italic" size="14.0" />
          </font></Button>
-         <Button fx:id="clients" layoutX="346.0" layoutY="215.0" mnemonicParsing="false" onAction="#clientButtonClicked" prefHeight="34.0" prefWidth="154.0" style="-fx-background-color: #79d70f; -fx-background-radius: 25px;" text="Gestion de Pharmacie" textFill="WHITE">
-         <font>
-            <Font name="System Bold Italic" size="12.0" />
-         </font></Button>
-        <Button fx:id="commandes" layoutX="346.0" layoutY="335.0" mnemonicParsing="false" onAction="#commandesButtonClicked" prefHeight="34.0" prefWidth="153.0" style="-fx-background-color: #79d70f; -fx-background-radius: 25px;" text="Gestion de Commandes" textFill="WHITE">
-         <font>
-            <Font name="System Bold Italic" size="12.0" />
-         </font></Button>
-        <Button fx:id="exit" layoutX="345.0" layoutY="393.0" mnemonicParsing="false" onAction="#exitButtonClicked" prefHeight="34.0" prefWidth="154.0" style="-fx-background-color: #79d70f; -fx-background-radius: 25px;" text="Quitter" textFill="WHITE">
-         <font>
-            <Font name="System Bold Italic" size="12.0" />
-         </font></Button>
-        <Button fx:id="ventes" layoutX="345.0" layoutY="277.0" mnemonicParsing="false" onAction="#ventesButtonClicked" prefHeight="34.0" prefWidth="154.0" style="-fx-background-color: #79d70f; -fx-background-radius: 25px;" text="Gestion de Paiement" textFill="WHITE">
-         <font>
-            <Font name="System Bold Italic" size="12.0" />
-         </font></Button>
-      <AnchorPane prefHeight="128.0" prefWidth="852.0" style="-fx-background-color: #79d70f;">
+      <AnchorPane prefHeight="128.0" prefWidth="852.0" style="-fx-background-color: #22d70f; -fx-background-radius: 5px;">
          <children>
-            <Label layoutX="269.0" layoutY="27.0" prefHeight="73.0" prefWidth="418.0" text="GOLDEN PHARMACIE" textFill="WHITE">
+            <Label layoutX="269.0" layoutY="27.0" prefHeight="73.0" prefWidth="471.0" text="PHARMACIES GESTION" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="40.0" />
                </font>
             </Label>
             <ImageView fitHeight="105.0" fitWidth="111.0" layoutX="119.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Logo-Pharmacie-1.jpg" />
+                  <Image url="@../assets/icone.png" />
                </image>
             </ImageView>
          </children>

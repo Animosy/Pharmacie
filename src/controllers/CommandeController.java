@@ -1,22 +1,28 @@
 package controllers;
 
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
-import models.Commande;
+import models.AchatCommande;
+import models.PharmacieInfos;
+
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import static models.PharmacieInfos.listCommande;
@@ -24,128 +30,152 @@ import static models.PharmacieInfos.listCommande;
 public class CommandeController implements Initializable {
 
     @FXML
-    private TextField nomClientField;
+    private ComboBox<String> pharmacieFeild;
 
     @FXML
-    private TextField nomFournisseurField;
+    private ComboBox<String> compteField;
 
     @FXML
-    private TextField nomProduitField;
-
+    private ComboBox<String> produitFeild;
+    
     @FXML
     private TextField quantiteField;
 
     @FXML
-    private TextField rechercheField;
+    private DatePicker dateField;
+    
+    @FXML
+    private TableView<AchatCommande> achatTable;
 
     @FXML
-    private TableView<Commande> commandeTable;
+    private TableColumn<AchatCommande , String> nomPharmacie,nomProduit,quantite,compteC;
 
     @FXML
-    private TableColumn<Commande , String> nomClient,produit,fournisseur,quantite;
-
+    private TableColumn<AchatCommande, LocalDate> date;
+    
     // initialiser le tableau des commandes avec la liste des commandes
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+    	
+    	ArrayList<String> listProduits = new ArrayList<String>();
+    	for(int i=0;i<PharmacieInfos.listProduitStocke.size();i++) {
+    		listProduits.add(PharmacieInfos.listProduitStocke.get(i).getNom());
+    	}
+    	
+    	ObservableList<String> obListP = FXCollections.observableList(listProduits);
+    	produitFeild.getItems().clear();
+    	produitFeild.setItems(obListP);
+        
+    	
+    	ArrayList<String> listPharmacies = new ArrayList<String>();
+    	for(int i=0;i<PharmacieInfos.listPharmacies.size();i++) {
+    		listPharmacies.add(PharmacieInfos.listPharmacies.get(i).getNom());
+    	}
+    	
+    	ObservableList<String> obList = FXCollections.observableList(listPharmacies);
+        pharmacieFeild.getItems().clear();
+        pharmacieFeild.setItems(obList);
+        
+        
+        nomPharmacie.setCellValueFactory(new PropertyValueFactory<AchatCommande,String>("pharmacie"));
+        nomProduit.setCellValueFactory(new PropertyValueFactory<AchatCommande,String>("produit"));
+        quantite.setCellValueFactory(new PropertyValueFactory<AchatCommande,String>("quantite"));
+        compteC.setCellValueFactory(new PropertyValueFactory<AchatCommande,String>("compteBancaire"));
+        date.setCellValueFactory(new PropertyValueFactory<AchatCommande,LocalDate>("date"));
+        
+        achatTable.setItems(listCommande);
+        achatTable.setEditable(true);
 
-        nomClient.setCellValueFactory(new PropertyValueFactory<Commande,String>("nom_client"));
-        produit.setCellValueFactory(new PropertyValueFactory<Commande,String>("prod_commande"));
-        fournisseur.setCellValueFactory(new PropertyValueFactory<Commande,String>("nom_fournisseur"));
-        quantite.setCellValueFactory(new PropertyValueFactory<Commande,String>("quantite"));
-
-        commandeTable.setItems(listCommande);
-        commandeTable.setEditable(true);
-
-        nomClient.setCellFactory(TextFieldTableCell.forTableColumn());
-        produit.setCellFactory(TextFieldTableCell.forTableColumn());
-        fournisseur.setCellFactory(TextFieldTableCell.forTableColumn());
+        nomPharmacie.setCellFactory(TextFieldTableCell.forTableColumn());
+        nomProduit.setCellFactory(TextFieldTableCell.forTableColumn());
         quantite.setCellFactory(TextFieldTableCell.forTableColumn());
+        compteC.setCellFactory(TextFieldTableCell.forTableColumn());
+        compteC.setCellFactory(TextFieldTableCell.forTableColumn());
 
-        // rechercher une commande dans le tableau des commandes en tapant le nom du produit
-        FilteredList<Commande> filteredData = new FilteredList<>(listCommande, p -> true);
-        rechercheField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(commande -> {
-                // If filter text is empty, display all persons.
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-
-                // Compare first name and last name of every person with filter text.
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                if (commande.getProd_commande().toLowerCase().contains(lowerCaseFilter)) {
-                    return true; // Filter matches first name.
-                }
-
-                return false; // Does not match.
-            });
-        });
-        // 3. Wrap the FilteredList in a SortedList.
-        SortedList<Commande> sortedData = new SortedList<>(filteredData);
-
-        // 4. Bind the SortedList comparator to the TableView comparator.
-        sortedData.comparatorProperty().bind(commandeTable.comparatorProperty());
-
-        // 5. Add sorted (and filtered) data to the table.
-        commandeTable.setItems(sortedData);
 
     }
 
     //ajouter une commande a la liste des commandes
-    public void ajouterButtonClicked (ActionEvent event) {
-        Commande commande = new Commande (nomProduitField.getText(),quantiteField.getText(),nomClientField.getText(),nomFournisseurField.getText());
-        listCommande.add(commande);
+    public void vendreButtonClicked (ActionEvent event) {
+//    	AchatCommande commande = new AchatCommande (pharmacieFeild.getSelectionModel().getSelectedItem().toString(),produitFeild.getSelectionModel().getSelectedItem().toString(),quantiteField.getText(), compteField.getSelectionModel().getSelectedItem().toString(), dateField.getValue());
+//        listCommande.add(commande);
+//
+//        quantiteField.clear();
+//    }
+//
+//    //supprimer une commande du tableau ( de la liste )
+//    public void supprimerButtonClicked (ActionEvent event) {
+//        AchatCommande commande = achatTable.getSelectionModel().getSelectedItem();
+//        listCommande.remove(commande);
+//
+//    }
+//
+//    // vendre un produit
+//    public void vendreButtonClicked (ActionEvent event) {
+//    	ProduitPharmacie med = null;
+//    	// verifier si le produit est un medicament qui existe dans le stock des medicaments
+//    	for(int i=0;i<PharmacieInfos.listProduitStocke.size();i++) {
+//    		if(PharmacieInfos.listProduitStocke.get(i).getNom().equals(nomProduit.getText())) {
+//    			med = PharmacieInfos.listProduitStocke.get(i);
+//    			break;
+//    		}
+//    	}
+//    	
+//    	if(med != null) {
+//    		// verifier si la quantite est disponible dans le stock
+//    		if (Integer.parseInt(quantiteField.getText()) <= Integer.parseInt(med.getQuantite_c()) ) {
+//    					// calculer le prix du medicament
+//    					double prix = Double.parseDouble(med.getPrix_vente()) * Double.parseDouble(quantiteField.getText()) ;
+//    					
+//    					// verifier si le client est assure pour beneficier d'un rembourcement
+////    					if(modePaiment.getSelectionModel().getSelectedItem().toString().equals("Carte Visa")) {
+////    						prix = prix - ( Double.parseDouble(med.getTauxRembourcement()) * Double.parseDouble(quantiteField.getText()) );
+////    					}
+//    					
+//    					// demande de confirmation de la vente
+//    					Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//                        alert.setTitle("Prix Final");
+//                        alert.setHeaderText(null);
+//                        alert.setContentText("Le prix final du Medicament = "+prix+" D.A \n Confirmer la vente ? ");
+//                        alert.showAndWait();
+//                        
+//                        // si la vente a ete confirmer
+//                        if(alert.getResult() == ButtonType.OK) {                         	
+//                        	CommandeVente vente = new CommandeVente(nomProduit.getText(),
+//                        			nomClientField.getText(),
+//                        			quantiteField.getText(),
+//                        			dateField.getValue(),
+//                        			modePaiment.getSelectionModel().getSelectedItem().toString());
+//                        	
+//                        	med.setQuantite_c(Integer.toString(Integer.parseInt(med.quantite_c)-Integer.parseInt(quantiteField.getText())));
+//                        	listVente.add(vente);
+//                        	venteTable.setItems(listVente);
+//                        }
+//                        
+//    			}
+//    		else {
+//    			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//                alert.setTitle("ERROR");
+//                alert.setHeaderText(null);
+//                alert.setContentText("Quantite insufisante dans le Stock");
+//                alert.showAndWait();
+//    		}
+//    	}
+//
+//
+//        nomClientField.clear();
+//        quantiteField.clear();
 
-        nomClientField.clear();
-        nomFournisseurField.clear();
-        nomProduitField.clear();
-        quantiteField.clear();
     }
-
-    //supprimer une commande du tableau ( de la liste )
-    public void supprimerButtonClicked (ActionEvent event) {
-        Commande commande = commandeTable.getSelectionModel().getSelectedItem();
-        listCommande.remove(commande);
-
-    }
-
     // retourner au menu principal
     public void retourButtonClicked (ActionEvent event) throws IOException {
 
-        Stage stage = (Stage) nomClientField.getScene().getWindow();
+        Stage stage = (Stage) quantiteField.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../views/Menu.fxml"));
+        loader.setLocation(getClass().getResource("../views/MenuCommand.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         stage.setScene(scene);
     }
     
- // modifier le nom du client selectionne 
-    public void changeNomClientCellEvent (TableColumn.CellEditEvent edditedCell) {
-
-        Commande commande = commandeTable.getSelectionModel().getSelectedItem();
-        commande.setNom_client(( edditedCell.getNewValue().toString()));
-    }
-
- // modifier le nom du produit selectionne 
-    public void changeNomProduitCellEvent (TableColumn.CellEditEvent edditedCell) {
-
-        Commande commande = commandeTable.getSelectionModel().getSelectedItem();
-        commande.setProd_commande(( edditedCell.getNewValue().toString()));
-    }
-
- // modifier le nom du fournisseur selectionne 
-    public void changeNomFournisseurCellEvent (TableColumn.CellEditEvent edditedCell) {
-
-        Commande commande = commandeTable.getSelectionModel().getSelectedItem();
-        commande.setNom_fournisseur(( edditedCell.getNewValue().toString()));
-    }
-
- // modifier la quantite selectionne 
-    public void changeQuantiteCellEvent (TableColumn.CellEditEvent edditedCell) {
-
-        Commande commande = commandeTable.getSelectionModel().getSelectedItem();
-        commande.setQuantite(( edditedCell.getNewValue().toString()));
-    }
-
 }

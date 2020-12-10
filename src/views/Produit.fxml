@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="586.0" prefWidth="1012.0" style="-fx-background-color: #d9e4dd;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ProduitController">
+      <children>
+      <Label layoutX="26.0" layoutY="135.0" text="Nom" />
+      <Label layoutX="28.0" layoutY="173.0" text="Type" />
+      <Label layoutX="27.0" layoutY="213.0" text="Prix d'achat" />
+      <Label layoutX="28.0" layoutY="251.0" text="Quantite" />
+      <Label layoutX="27.0" layoutY="288.0" text="Pharmacie" />
+      <Label layoutX="28.0" layoutY="325.0" text="Prix de vente" />
+      <Label layoutX="25.0" layoutY="366.0" text="Date peremptionn" />
+      <TextField fx:id="nomProduit" layoutX="138.0" layoutY="131.0" promptText="Nom Produit" style="-fx-background-radius: 10;" />
+      <TextField fx:id="typeProduit" layoutX="139.0" layoutY="169.0" promptText="Type Produit" style="-fx-background-radius: 10;" />
+      <TextField fx:id="prixAchat" layoutX="140.0" layoutY="209.0" promptText="Prix Acahat" style="-fx-background-radius: 10;" />
+      <TextField fx:id="quantiteField" layoutX="139.0" layoutY="247.0" promptText="Quantite" style="-fx-background-radius: 10;" />
+      <TextField fx:id="prixVente" layoutX="139.0" layoutY="321.0" promptText="Prix" style="-fx-background-radius: 10;" />
+      <DatePicker fx:id="dateField" layoutX="141.0" layoutY="362.0" prefHeight="26.0" prefWidth="149.0" promptText="JJ/MM/AAAA" />
+      <Button fx:id="ajouter" layoutX="26.0" layoutY="416.0" mnemonicParsing="false" onAction="#ajouterProduitButtonClicked" prefHeight="45.0" prefWidth="256.0" style="-fx-background-radius: 25px; -fx-background-color: green;" text="Ajouter Produit" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="16.0" />
+         </font></Button>
+      <TableView fx:id="produitTable" layoutX="302.0" layoutY="104.0" prefHeight="372.0" prefWidth="692.0">
+        <columns>
+          <TableColumn fx:id="pharmacie_c" prefWidth="77.0" text="Pharmacie" />
+          <TableColumn fx:id="nom" prefWidth="110.0" text="Nom Produit" />
+            <TableColumn fx:id="type" prefWidth="106.0" text="Type" />
+            <TableColumn fx:id="quantite_c" prefWidth="79.0" text="Quantite" />
+            <TableColumn fx:id="prix_achat" prefWidth="86.0" text="Prix d'achat" />
+            <TableColumn fx:id="prix_vente" prefWidth="81.0" text="Prix de vente" />
+            <TableColumn fx:id="date" prefWidth="151.0" text="Date peremption" />
+        </columns>
+      </TableView>
+      <Button layoutX="18.0" layoutY="531.0" mnemonicParsing="false" onAction="#retourButtonClicked" prefHeight="26.0" prefWidth="90.0" style="-fx-background-radius: 25px; -fx-background-color: ec0101;" text="Retourner" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font></Button>
+      <ComboBox fx:id="pharmacieProduit" layoutX="138.0" layoutY="284.0" prefWidth="150.0" promptText="Select Pharmacie" style="-fx-background-radius: 10;" />
+      <Label layoutX="414.0" layoutY="25.0" text="Gestions de produits">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

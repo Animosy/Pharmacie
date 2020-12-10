@@ -1,5 +1,4 @@
 package Main;
-import controllers.PharmacieController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,7 +7,6 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-	PharmacieController pharmacieController = PharmacieController.getPharmacieController();
 	
     @Override
     public void start(Stage primaryStage) throws Exception{

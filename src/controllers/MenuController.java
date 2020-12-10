@@ -23,7 +23,9 @@ public class MenuController {
     @FXML
     public Button clients;
     @FXML
-    public Button stockParapharm;
+    public Button employe;
+    @FXML
+    public Button pharmacieMenu;
 
     // aller a l'interface de stock
     @FXML
@@ -31,7 +33,7 @@ public class MenuController {
 
         Stage stage = (Stage) stock.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../views/StockSelection.fxml"));
+        loader.setLocation(getClass().getResource("../views/Produit.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -53,11 +55,11 @@ public class MenuController {
 
  // aller a l'interface de gestion des ventes
     @FXML
-    public void ventesButtonClicked (ActionEvent event) throws  IOException{
+    public void employeButtonClicked (ActionEvent event) throws  IOException{
 
         Stage stage = (Stage) stock.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../views/Vente.fxml"));
+        loader.setLocation(getClass().getResource("../views/Employe.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -69,7 +71,19 @@ public class MenuController {
 
         Stage stage = (Stage) stock.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../views/Commande.fxml"));
+        loader.setLocation(getClass().getResource("../views/MenuCommand.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+    }
+    
+ // aller a l'interface de gestion des commandes
+    @FXML
+    public void pharmacieButtonClicked (ActionEvent event) throws  IOException{
+
+        Stage stage = (Stage) stock.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("../views/MenuPharmacie.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -82,39 +96,4 @@ public class MenuController {
         System.exit(0);
     }
 
-    // aller a l'interface de gestion des stock des produit parapharmaceutique
-    @FXML
-    public void StockProduitParapharmButtonClicked (ActionEvent event) throws IOException{
-
-        Stage stage = (Stage) stockParapharm.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../views/StockParapharm.fxml"));
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-    }
-
-    // aller a l'interface de gestion des medicaments
-    @FXML
-    public void StockMedicamentButtonClicked (ActionEvent event) throws IOException{
-
-        Stage stage = (Stage) stockParapharm.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../views/StockMedicament.fxml"));
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-    }
-
-    // retouner au menu principal
-    @FXML
-    public void retourButtonClicked (ActionEvent event) throws IOException{
-
-        Stage stage = (Stage) stockParapharm.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../views/Menu.fxml"));
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-    }
 }
